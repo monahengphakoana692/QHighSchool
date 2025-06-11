@@ -1,0 +1,17 @@
+<%-- 
+    Document   : reports
+    Created on : 04 Jun 2025, 17:12:23
+    Author     : Malomile Ramochele
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>JSP Page</title>
+    </head>
+    <body>
+        <h1>Hello World!</h1>
+    </body>
+</html>
