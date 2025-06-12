@@ -28,7 +28,7 @@ throws ServletException, IOException {
                 res.sendRedirect("principal_dashboard.jsp");
                 break;
             case "teacher":
-                res.sendRedirect("teacher_dashboard.jsp");
+                res.sendRedirect("index.jsp");
                 break;
             case "student":
                 res.sendRedirect("student_dashboard.jsp");

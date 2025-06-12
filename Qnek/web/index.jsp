@@ -1,4 +1,15 @@
+<%@page import="com.qacha.model.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page session="true" %>
+
+<%
+User user = (User) session.getAttribute("user");
+if (user == null || !"teacher".equals(user.getRole())) {
+response.sendRedirect("login.jsp");
+return;
+}
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
