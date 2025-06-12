@@ -31,4 +31,28 @@ public static List<User> getAllTeachers() {
     }
     return list;
 }
+
+public static void deleteTeacher(int userId) {
+    try (Connection conn = DBConnection.getConnection()) {
+        PreparedStatement ps = conn.prepareStatement("DELETE FROM users WHERE user_id = ?");
+        ps.setInt(1, userId);
+        ps.executeUpdate();
+    } catch (Exception e) {
+    }
+}
+
+public static void updateTeacher(User user) {
+    try (Connection conn = DBConnection.getConnection()) {
+        String sql = "UPDATE users SET first_name = ?, last_name = ?, email = ?, phone = ? WHERE user_id = ?";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setString(1, user.getFirstName());
+        ps.setString(2, user.getLastName());
+        ps.setString(3, user.getEmail());
+        ps.setString(4, user.getPhone());
+        ps.setInt(5, user.getUserId());
+        ps.executeUpdate();
+    } catch (Exception e) {
+    }
+}
+
 }

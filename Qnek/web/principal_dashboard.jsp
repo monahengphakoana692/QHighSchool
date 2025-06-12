@@ -37,7 +37,7 @@ body { margin: 0; background-color: #f4f6f8; font-family: 'Segoe UI', sans-serif
  <a href="#">Dashboard</a> <a href="#">Teachers</a>
  <a href="#">Students</a> <a href="#">Announcements</a>
  <a href="#">Classes</a> <a href="#">Reports</a> <a href="logout.jsp">Logout</a>
- </div> <div class="main"> <h3 class="mb-4">Principal Dashboard</h3>
+ </div> <div class="main"> <h3 class="mb-4">Qacha 's Nek High School</h3>
 
 <div class="grid-2">
     <div class="card-box">
