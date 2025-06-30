@@ -12,32 +12,37 @@ import java.io.IOException;
 public class StudentServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        String action = req.getParameter("action");
+    String action = req.getParameter("action");
 
-        if ("Update".equals(action)) {
-            Student s = new Student();
-            s.setStudentId(Integer.parseInt(req.getParameter("id")));
-            s.setParentName(req.getParameter("parentName"));
-            s.setParentPhone(req.getParameter("parentPhone"));
-            s.setAddress(req.getParameter("address"));
-            s.setDateOfBirth(req.getParameter("dob"));
-            s.setClassId(Integer.parseInt(req.getParameter("classId")));
+    if ("add".equalsIgnoreCase(action)) {
+        Student s = new Student();
+        s.setFirstName(req.getParameter("firstName"));
+        s.setLastName(req.getParameter("lastName"));
+        s.setParentName(req.getParameter("parentName"));
+        s.setParentPhone(req.getParameter("parentPhone"));
+        s.setDateOfBirth(req.getParameter("dob"));
+        s.setAddress(req.getParameter("address"));
+        s.setClassId(Integer.parseInt(req.getParameter("classId")));
 
-            StudentDAO.updateStudent(s);
-        } else {
-            Student s = new Student();
-            s.setFullName(req.getParameter("fullName")); // optional
-            s.setParentName(req.getParameter("parentName"));
-            s.setParentPhone(req.getParameter("parentPhone"));
-            s.setAddress(req.getParameter("address"));
-            s.setDateOfBirth(req.getParameter("dob"));
-            s.setClassId(Integer.parseInt(req.getParameter("classId")));
+        StudentDAO.insertStudent(s);
+        res.sendRedirect("students.jsp");
+    } else if ("edit".equalsIgnoreCase(action)) {
+        Student s = new Student();
+        s.setStudentId(Integer.parseInt(req.getParameter("studentId")));
+        s.setParentName(req.getParameter("parentName"));
+        s.setParentPhone(req.getParameter("parentPhone"));
+        s.setDateOfBirth(req.getParameter("dob"));
+        s.setAddress(req.getParameter("address"));
+        s.setClassId(Integer.parseInt(req.getParameter("classId")));
 
-            StudentDAO.insertStudent(s);
-        }
-
+        StudentDAO.updateStudent(s);
+        res.sendRedirect("students.jsp");
+    } else if ("delete".equalsIgnoreCase(action)) {
+        int id = Integer.parseInt(req.getParameter("studentId"));
+        StudentDAO.deleteStudent(id);
         res.sendRedirect("students.jsp");
     }
+}
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
