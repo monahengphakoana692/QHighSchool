@@ -31,7 +31,7 @@ List<User> teacherList = TeacherDAO.getAllTeachers();
 <table class="table table-bordered mt-3" id="teachersTable">
     <thead class="table-dark">
     <tr>
-        <th>Name</th> <th>Email</th> <th>Phone</th> <th>Username</th> <th>Actions</th>
+        <th>Name</th> <th>Email</th> <th>Contacts</th> <th>Username</th> <th>Actions</th>
     </tr>
     </thead>
     <tbody>

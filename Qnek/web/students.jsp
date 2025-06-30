@@ -38,17 +38,56 @@ List<Student> studentList = StudentDAO.getAllStudents();
         </thead>
         <tbody>
         <% for (Student s : studentList) { %>
-            <tr>
-                <td><%= s.getFirstName() %> <%= s.getLastName() %></td>
-                <td><%= s.getParentName() %></td>
-                <td><%= s.getParentPhone() %></td>
-                <td><%= s.getDateOfBirth() %></td>
-                <td><%= s.getAddress() %></td>
-                <td><%= s.getClassId() %></td>
-            </tr>
-        <% } %>
+<tr>
+    <td><%= s.getFirstName() %> <%= s.getLastName() %></td>
+    <td><%= s.getParentName() %></td>
+    <td><%= s.getParentPhone() %></td>
+    <td><%= s.getDateOfBirth() %></td>
+    <td><%= s.getAddress() %></td>
+    <td><%= s.getClassId() %></td>
+    <td>
+        <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editStudentModal<%= s.getStudentId() %>">Edit</button>
+        <form action="student" method="post" style="display:inline;">
+            <input type="hidden" name="action" value="delete">
+            <input type="hidden" name="studentId" value="<%= s.getStudentId() %>">
+            <button class="btn btn-sm btn-danger" onclick="return confirm('Delete this student?')">Delete</button>
+        </form>
+    </td>
+</tr>
+<% } %>
+
         </tbody>
     </table>
+
+<% for (Student s : studentList) { %>
+<div class="modal fade" id="editStudentModal<%= s.getStudentId() %>" tabindex="-1">
+  <div class="modal-dialog">
+    <form method="post" action="student">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5>Edit Student</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" name="action" value="edit">
+          <input type="hidden" name="studentId" value="<%= s.getStudentId() %>">
+          <div class="mb-3"><label>First Name</label><input name="firstName" class="form-control" value="<%= s.getFirstName() %>"></div>
+          <div class="mb-3"><label>Last Name</label><input name="lastName" class="form-control" value="<%= s.getLastName() %>"></div>
+          <div class="mb-3"><label>Parent Name</label><input name="parentName" class="form-control" value="<%= s.getParentName() %>"></div>
+          <div class="mb-3"><label>Parent Phone</label><input name="parentPhone" class="form-control" value="<%= s.getParentPhone() %>"></div>
+          <div class="mb-3"><label>Date of Birth</label><input type="date" name="dob" class="form-control" value="<%= s.getDateOfBirth() %>"></div>
+          <div class="mb-3"><label>Address</label><input name="address" class="form-control" value="<%= s.getAddress() %>"></div>
+          <div class="mb-3"><label>Class ID</label><input name="classId" class="form-control" value="<%= s.getClassId() %>"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Save Changes</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<% } %>
+
 
     <a href="principal_dashboard.jsp" class="btn btn-secondary">Back to Dashboard</a>
 </div>

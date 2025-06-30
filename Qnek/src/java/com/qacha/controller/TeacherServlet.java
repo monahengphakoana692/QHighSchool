@@ -13,6 +13,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 @WebServlet("/teacher")
 public class TeacherServlet extends HttpServlet {
 
@@ -76,9 +78,28 @@ protected void doPost(HttpServletRequest req, HttpServletResponse res)
     }
 
 if ("delete".equalsIgnoreCase(action)) {
-    int userId = Integer.parseInt(req.getParameter("userId"));
-    TeacherDAO.deleteTeacher(userId);
-    res.sendRedirect("teachers.jsp");
+int userId = Integer.parseInt(req.getParameter("userId"));
+
+try (Connection conn = DBConnection.getConnection()) {
+    // 1. Delete from teachers table
+    String deleteTeacherSQL = "DELETE FROM teachers WHERE user_id = ?";
+    try (PreparedStatement ps1 = conn.prepareStatement(deleteTeacherSQL)) {
+        ps1.setInt(1, userId);
+        ps1.executeUpdate();
+    }
+
+    // 2. Delete from users table
+    String deleteUserSQL = "DELETE FROM users WHERE user_id = ?";
+    try (PreparedStatement ps2 = conn.prepareStatement(deleteUserSQL)) {
+        ps2.setInt(1, userId);
+        ps2.executeUpdate();
+    }
+}       catch (SQLException ex) {
+            Logger.getLogger(TeacherServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+res.sendRedirect("teachers.jsp");
+return;
 }
 else if ("edit".equalsIgnoreCase(action)) {
     int userId = Integer.parseInt(req.getParameter("userId"));
